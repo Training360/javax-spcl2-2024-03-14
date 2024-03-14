@@ -1,5 +1,6 @@
 package training.calculator;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import java.math.RoundingMode;
 import java.util.function.Function;
 
 @SpringBootApplication
+@Slf4j
 public class CalculatorApplication {
 
     public static void main(String[] args) {
@@ -17,7 +19,10 @@ public class CalculatorApplication {
 
     @Bean
     public Function<CalculationRequest, CalculationResponse> calculate() {
-        return request -> new CalculationResponse(request.getA() + request.getB());
+        return request -> {
+            log.info("Request: {}", request);
+            return new CalculationResponse(request.getA() + request.getB());
+        };
     }
 
     @Bean
