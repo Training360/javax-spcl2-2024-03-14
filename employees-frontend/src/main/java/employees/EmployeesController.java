@@ -17,6 +17,8 @@ public class EmployeesController {
 
     private EmployeesClient employeesClient;
 
+    private EmployeeBackendGateway employeeBackendGateway;
+
     @GetMapping("/")
     public ModelAndView listEmployees() {
         Map<String, Object> model = new HashMap<>();
@@ -36,7 +38,10 @@ public class EmployeesController {
 
     @PostMapping("/create-employee")
     public ModelAndView createEmployeePost(@ModelAttribute Employee command) {
-        employeesClient.createEmployee(command);
+//        employeesClient.createEmployee(command);
+
+        employeeBackendGateway.send(command.getName());
+
         return new ModelAndView("redirect:/");
     }
 

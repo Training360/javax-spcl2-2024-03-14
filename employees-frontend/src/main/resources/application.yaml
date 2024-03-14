@@ -6,6 +6,9 @@ management:
     web:
       exposure:
         include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
 
 logging:
   level:
@@ -14,3 +17,18 @@ logging:
 
 employees:
   backend-url: http://localhost:8081
+spring:
+  application:
+    name: employees-frontend
+  cloud:
+    stream:
+      bindings:
+        createEmployee:
+          destination: employee-backend-command
+          content-type: application/*+avro
+        employeeCreated-in-0:
+          destination: employee-backend-event
+          content-type: application/*+avro
+      kafka:
+        binder:
+          enable-observation: true

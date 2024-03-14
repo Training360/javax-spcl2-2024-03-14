@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "EmployeeHasBeenCreatedEvent",
+  "namespace": "employees",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    }
+  ]
+}

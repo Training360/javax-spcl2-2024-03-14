@@ -12,7 +12,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": ""
+  "name": "John Doe"
 }
 
 ###
@@ -23,3 +23,6 @@ Accept: application/json
 {
   "name": "John Doe"
 }
+
+### Schema registry
+GET http://localhost:8990/createemployeecommand/avro

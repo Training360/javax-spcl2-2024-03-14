@@ -2,6 +2,8 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: employees-backend
   datasource:
     url: jdbc:postgresql://localhost:5432/employees
     username: employees
@@ -10,14 +12,38 @@ spring:
     open-in-view: false
   liquibase:
     change-log: classpath:db/db-changelog.yaml
+  cloud:
+    function:
+      definition: createEmployee;tick
+    stream:
+        bindings:
+          createEmployee-in-0:
+            destination: employee-backend-command
+            contentType: application/*+avro
+          createEmployee-out-0:
+            destination:  employee-backend-event
+            contentType: application/*+avro
+          tick-out-0:
+            producer:
+              poller:
+                initial-delay: 0
+                fixed-delay: 5000
+            destination: employee-backend-tick
+        kafka:
+          binder:
+            enable-observation: true
 
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
 
 logging:
   level:
     employees: DEBUG
     org.hibernate.SQL: TRACE
+
