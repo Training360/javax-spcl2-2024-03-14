@@ -1,0 +1,7 @@
+POST http://localhost:8080/calculate,round
+Content-Type: application/json
+
+{
+  "a": 1.1234,
+  "b": 3.2468
+}
